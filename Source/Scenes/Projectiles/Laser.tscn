@@ -1,0 +1,44 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://Scripts/Projectiles/Laser.gd" type="Script" id=1]
+[ext_resource path="res://Assets/Sprites/Turret/bullet.png" type="Texture" id=2]
+[ext_resource path="res://Assets/Sprites/Turret/bullet2.png" type="Texture" id=3]
+[ext_resource path="res://Assets/Sprites/Turret/bullet3.png" type="Texture" id=4]
+[ext_resource path="res://Assets/Sprites/Turret/bullet4.png" type="Texture" id=5]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 1.52685, 2.53861 )
+
+[sub_resource type="SpriteFrames" id=2]
+animations = [ {
+"frames": [ ExtResource( 2 ), ExtResource( 3 ), ExtResource( 4 ), ExtResource( 5 ) ],
+"loop": true,
+"name": "Shoot",
+"speed": 15.0
+} ]
+
+[node name="Laser" type="Area2D"]
+position = Vector2( 0.238155, 0 )
+collision_layer = 64
+collision_mask = 37
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource( 1 )
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+position = Vector2( -14.4657, -15.4659 )
+frames = SubResource( 2 )
+animation = "Shoot"
+frame = 2
+playing = true
+centered = false
+
+[node name="VisibilityNotifier2D" type="VisibilityNotifier2D" parent="."]
+position = Vector2( 0.110334, 0.0275831 )
+scale = Vector2( 0.300887, 0.288633 )
+[connection signal="body_entered" from="." to="." method="_on_Laser_body_entered"]
+[connection signal="screen_exited" from="VisibilityNotifier2D" to="." method="_on_VisibilityNotifier2D_screen_exited"]

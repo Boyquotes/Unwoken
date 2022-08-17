@@ -1,0 +1,78 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://Scripts/Enemies/Ufo_boss.gd" type="Script" id=1]
+[ext_resource path="res://Assets/Sprites/Boss/Ufo-Boss_1.png" type="Texture" id=2]
+[ext_resource path="res://Assets/Sprites/Boss/Ufo-Boss_damaged.png" type="Texture" id=3]
+
+[sub_resource type="SpriteFrames" id=1]
+animations = [ {
+"frames": [ ExtResource( 2 ) ],
+"loop": true,
+"name": "Idle",
+"speed": 10.0
+}, {
+"frames": [ ExtResource( 3 ) ],
+"loop": true,
+"name": "Damaged",
+"speed": 1.0
+} ]
+
+[sub_resource type="CanvasItemMaterial" id=2]
+blend_mode = 1
+
+[node name="Ufo_boss" type="KinematicBody2D" groups=[
+"need_player_ref",
+]]
+position = Vector2( 3.68053, 4.78469 )
+collision_layer = 2
+collision_mask = 37
+script = ExtResource( 1 )
+max_speed_x = 100
+acceleration = 20
+target_player_dist_y = 125
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+position = Vector2( -0.418002, 8.25149 )
+frames = SubResource( 1 )
+animation = "Idle"
+playing = true
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+visible = false
+polygon = PoolVector2Array( -3.05287, 36.0619, 6.77681, 35.93, 23.2036, 27.9475, 25.9084, 24.9128, 30.7243, 22.9337, 36.6617, 19.965, 42.4671, 17.0623, 47.7448, 14.0276, 49.0642, 13.038, 49.1302, 11.0589, 60.939, 11.0589, 62.0605, 9.47559, 60.873, 8.15617, 57.6405, 8.15617, 48.6684, 1.42713, 59.1578, 1.0313, 55.0676, -3.98249, 45.2379, -4.18041, 43.9185, -6.88522, 25.7765, -15.9232, 21.2245, -16.1871, 10.6691, -27.864, 8.88787, -28.3258, 8.36011, -30.5688, 3.80811, -34.791, -3.05288, -34.725, -8.00071, -29.8431, -7.93473, -28.6557, -9.84789, -28.2598, -13.7402, -23.9717, -19.7435, -18.0343, -21.1949, -16.1871, -25.0212, -15.9232, -43.625, -6.15953, -44.3507, -3.98249, -53.7846, -3.98249, -58.2706, 0.50354, -47.9791, 0.569511, -52.0034, 5.64928, -60.9754, 9.07977, -60.1838, 10.5971, -44.2848, 10.729, -25.6822, 22.8614, -21.2963, 22.7883, -19.2495, 26.6625 )
+
+[node name="Beam" type="Node2D" parent="."]
+position = Vector2( 0.889674, 35.1564 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Muzzle" type="Position2D" parent="Beam"]
+position = Vector2( -0.120316, -0.0514145 )
+
+[node name="Line2D" type="Line2D" parent="Beam"]
+show_behind_parent = true
+material = SubResource( 2 )
+position = Vector2( 0.117821, -0.00898361 )
+points = PoolVector2Array( 0, 0 )
+default_color = Color( 1, 0, 0, 1 )
+texture_mode = -1039925248
+
+[node name="Area2D" type="Area2D" parent="Beam"]
+editor/display_folded = true
+position = Vector2( -0.22876, 0.172276 )
+
+[node name="Line2D_Collision" type="CollisionPolygon2D" parent="Beam/Area2D"]
+position = Vector2( 4.96315, -0.265572 )
+polygon = PoolVector2Array( 0, 0, -10, 0, -10, 0 )
+
+[node name="Death_timer" type="Timer" parent="."]
+wait_time = 0.8
+one_shot = true
+
+[node name="CooldownTimer" type="Timer" parent="."]
+wait_time = 3.0
+autostart = true
+[connection signal="body_entered" from="Beam/Area2D" to="." method="_on_Area2D_body_entered"]
+[connection signal="timeout" from="Death_timer" to="." method="_on_Death_timer_timeout"]
+[connection signal="timeout" from="CooldownTimer" to="." method="_on_CooldownTimer_timeout"]

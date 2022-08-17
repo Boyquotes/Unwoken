@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/Laser_beam.wav-03b481eb7993dcfa771a6b4c878518c7.sample"
+
+[deps]
+
+source_file="res://Assets/SoundEffects/Laser_beam.wav"
+dest_files=[ "res://.import/Laser_beam.wav-03b481eb7993dcfa771a6b4c878518c7.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=true
+edit/normalize=true
+edit/loop=false
+compress/mode=0

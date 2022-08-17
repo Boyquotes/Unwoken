@@ -1,0 +1,23 @@
+[gd_scene load_steps=2 format=2]
+
+[sub_resource type="ParticlesMaterial" id=1]
+emission_shape = 2
+emission_box_extents = Vector3( 5, 1, 1 )
+flag_disable_z = true
+spread = 106.13
+gravity = Vector3( 0, -1, 1 )
+initial_velocity = 7.29
+initial_velocity_random = 1.0
+angular_velocity = -1.51263e-023
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+radial_accel = 1.26
+color = Color( 1, 0, 0, 1 )
+
+[node name="LaserBeamHitEffect" type="Particles2D"]
+position = Vector2( -0.0356483, 0.285187 )
+amount = 30
+lifetime = 3.0
+speed_scale = 4.54
+randomness = 1.0
+process_material = SubResource( 1 )

@@ -1,0 +1,79 @@
+[gd_scene load_steps=17 format=2]
+
+[ext_resource path="res://Scripts/Player/Gadget/Gadget.gd" type="Script" id=1]
+[ext_resource path="res://Assets/Sprites/Gadget/Drone_Leg_1.png" type="Texture" id=2]
+[ext_resource path="res://Assets/Sprites/Gadget/Drone_Leg_2.png" type="Texture" id=3]
+[ext_resource path="res://Assets/Sprites/Gadget/Drone_Leg_3.png" type="Texture" id=4]
+[ext_resource path="res://Assets/Sprites/Gadget/Drone_Leg_4.png" type="Texture" id=5]
+[ext_resource path="res://Assets/Sprites/Gadget/Drone_Leg_5.png" type="Texture" id=6]
+[ext_resource path="res://Assets/Sprites/Gadget/Drone_Leg_6.png" type="Texture" id=7]
+[ext_resource path="res://Assets/Sprites/Gadget/Drone_Leg_7.png" type="Texture" id=8]
+[ext_resource path="res://Assets/Sprites/Gadget/Drone_Leg_8.png" type="Texture" id=9]
+[ext_resource path="res://Assets/Sprites/Gadget/Drone_Head_1.png" type="Texture" id=10]
+[ext_resource path="res://Assets/Sprites/Gadget/Drone_Head_2.png" type="Texture" id=11]
+[ext_resource path="res://Assets/Sprites/Gadget/Drone_Head_2_2.png" type="Texture" id=12]
+[ext_resource path="res://Scripts/Player/Gadget/Head.gd" type="Script" id=13]
+
+[sub_resource type="SpriteFrames" id=1]
+animations = [ {
+"frames": [ ExtResource( 2 ), ExtResource( 3 ), ExtResource( 4 ), ExtResource( 5 ), ExtResource( 6 ), ExtResource( 7 ), ExtResource( 8 ), ExtResource( 9 ) ],
+"loop": true,
+"name": "Idle",
+"speed": 5.0
+} ]
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 2.60697, 3.77319 )
+
+[sub_resource type="SpriteFrames" id=3]
+animations = [ {
+"frames": [ ExtResource( 10 ), ExtResource( 11 ) ],
+"loop": true,
+"name": "Not_rotated",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 10 ), ExtResource( 12 ) ],
+"loop": true,
+"name": "Rotated",
+"speed": 5.0
+} ]
+
+[node name="Gadget" type="KinematicBody2D" groups=[
+"need_player_ref",
+"drone",
+]]
+position = Vector2( 3.019, 2.557 )
+collision_layer = 8
+collision_mask = 2
+script = ExtResource( 1 )
+fire_delay = 0.1
+max_speed_x = 115
+max_speed_y = 115
+
+[node name="Legs" type="AnimatedSprite" parent="."]
+position = Vector2( -2.98511, -2.14484 )
+scale = Vector2( 0.5, 0.5 )
+frames = SubResource( 1 )
+animation = "Idle"
+frame = 5
+playing = true
+centered = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( -0.0318108, 0.790133 )
+shape = SubResource( 2 )
+disabled = true
+
+[node name="Head" type="AnimatedSprite" parent="."]
+position = Vector2( -0.000165939, -0.257715 )
+scale = Vector2( 0.5, 0.5 )
+frames = SubResource( 3 )
+animation = "Not_rotated"
+frame = 1
+centered = false
+offset = Vector2( -5.35996, -5.25987 )
+script = ExtResource( 13 )
+
+[node name="Shoot_delay" type="Timer" parent="."]
+one_shot = true
+[connection signal="timeout" from="Shoot_delay" to="." method="_on_Shoot_delay_timeout"]

@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://Scripts/ControllingScripts/MainAudio.gd" type="Script" id=1]
+[ext_resource path="res://Assets/Music/231254__foolboymedia__action-theme.wav" type="AudioStream" id=2]
+[ext_resource path="res://Assets/Music/251461__joshuaempyre__arcade-music-loop.wav" type="AudioStream" id=3]
+
+
+
+[node name="Music" type="Node2D" groups=[
+"need_player_ref",
+]]
+script = ExtResource( 1 )
+
+[node name="Boss_fight" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 2 )
+volume_db = -28.194
+
+[node name="Main_music" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 3 )
+volume_db = -40.0
+[connection signal="finished" from="Boss_fight" to="." method="_on_Boss_fight_finished"]
+[connection signal="finished" from="Main_music" to="." method="_on_Main_music_finished"]

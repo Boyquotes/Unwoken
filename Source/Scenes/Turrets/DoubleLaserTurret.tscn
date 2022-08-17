@@ -1,0 +1,58 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Scripts/Turrets/DoubleLaserTurret.gd" type="Script" id=1]
+[ext_resource path="res://Assets/Sprites/Boss/Boss_turret.png" type="Texture" id=2]
+
+[node name="DoubleLaserTurret" type="StaticBody2D" groups=[
+"need_player_ref",
+]]
+position = Vector2( 18.5865, 14.906 )
+scale = Vector2( 0.8, 0.8 )
+collision_layer = 32
+collision_mask = 5
+script = ExtResource( 1 )
+fire_delay = 0.5
+
+[node name="dir1" type="Position2D" parent="."]
+position = Vector2( 32.5433, 0.853625 )
+scale = Vector2( 1, 1 )
+
+[node name="dir2" type="Position2D" parent="."]
+position = Vector2( -23.2331, 0.853625 )
+scale = Vector2( 1, 1 )
+
+[node name="Core" type="Sprite" parent="."]
+position = Vector2( 0.358919, -6.54187 )
+texture = ExtResource( 2 )
+region_enabled = true
+region_rect = Rect2( 31, 3, 37, 16 )
+
+[node name="Head" type="Sprite" parent="."]
+editor/display_folded = true
+position = Vector2( -0.00869179, -0.0406227 )
+z_as_relative = false
+texture = ExtResource( 2 )
+offset = Vector2( 5.36486, 1.63964 )
+region_enabled = true
+region_rect = Rect2( 3, 2, 26, 17 )
+
+[node name="Barrel1" type="Position2D" parent="Head"]
+position = Vector2( 20.3371, -1.80898 )
+
+[node name="Barrel2" type="Position2D" parent="Head"]
+position = Vector2( 20.3168, 3.10723 )
+
+[node name="Core_collision" type="CollisionPolygon2D" parent="."]
+visible = false
+polygon = PoolVector2Array( 18.2337, -14.2179, -18.6219, -14.2179, -15.8117, -11.9604, -2.82007, -11.684, -1.57619, -7.35349, -1.06943, 0.800831, 1.41833, 0.846899, 1.23405, -10.1637, 2.66221, -11.3615, 14.3178, -11.3615 )
+
+[node name="Head_collision" type="CollisionPolygon2D" parent="."]
+polygon = PoolVector2Array( 16.9994, -4.0109, 17.0369, -2.92271, 17.8999, -2.92271, 18.05, 4.09428, 17.2996, 4.99485, 6.26752, 5.0699, 2.62769, 8.78477, -1.65004, 8.8223, -7.57883, 1.73027, -7.87902, -0.858888, -2.73824, -7.08787, 3.86598, -7.01282, 6.60523, -3.97338 )
+
+[node name="ShootTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="VisibilityNotifier2D" type="VisibilityNotifier2D" parent="."]
+position = Vector2( 0.382332, -2.16653 )
+scale = Vector2( 1.87936, 1.21665 )
+[connection signal="timeout" from="ShootTimer" to="." method="_on_ShootTimer_timeout"]
